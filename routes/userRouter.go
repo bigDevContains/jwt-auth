@@ -2,11 +2,13 @@ package routes
 
 import(
 	controller "github.com/bigDevContains/golang-jwt-project/controllers"
-	
+	 "github.com/bigDevContains/golang-jwt-project/middleware"
+
 	"github.com/gin-gonic/gin"
 )
 
-func UserRoutes(incoming Routes *gin.Engine){
-	incomingToutes.POST("users/signup", controller.Signup())
-	incomingROutes.POST("users/login", controller.Login())
+func UserRoutes(incomingRoutes *gin.Engine){
+	incomingRoutes.Use(middleware.Authenticate())
+	incomingRoutes.GET("/users", controller.GetUsers())
+	incomingRoutes.GET("/users/:user_id", controller.GetUser())
 }
