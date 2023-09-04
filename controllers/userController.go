@@ -15,6 +15,9 @@ import (
 	"github.org/x/crypto/bcrypt"
 )
 
+var userCollection *mongo.Collection = database.openCollection(database.Client, "user")
+var validate = validator.New()
+
 func HashPassword()
 
 func VerifyPssword()
@@ -25,4 +28,10 @@ func Login()
 
 func GetUsers()
 
-func GetUSer()
+func GetUSer() gin.HandlerFunc{
+	return func(c *gin.Context){
+		userId := c.Param("user_id")
+
+		helper.MatchUserTypeTOUid(c, userId); 
+	}
+}
